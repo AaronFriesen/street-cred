@@ -1,0 +1,23 @@
+<!-- Template for the quest table -->
+<table id="quests" class = "table table-hover table-collapse">
+    <thead>
+        <tr>
+            <th>Quest</th>
+            <th>Level</th>
+            <th>Required</th>
+            <th>Reputation</th>
+            <th>Experience</th>
+        </tr>
+    </thead>
+    <tbody>
+            {{#quests}}
+            <tr>
+                <a href="{{link}}"><td>{{name}}</td></a> 
+                <td>{{level}}</td> 
+                <td>{{req}}</td> 
+                <td>{{rep}}</td> 
+                <td>{{exp}}</td>
+            </tr>
+            {{/quests}}
+    </tbody>
+</table>
