@@ -74,20 +74,62 @@
       <h1>Silvermoon City</h1>
       <hr>
       <!--Insert Content Here -->
-      <h3>Some section</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tortor tortor, nec rhoncus ipsum sollicitudin id. Phasellus rutrum, nulla et accumsan hendrerit, nulla tellus consequat massa, a eleifend ante velit in metus. Fusce et nisi vehicula, convallis leo a, adipiscing sapien. Phasellus sed lorem a urna pretium dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam elementum iaculis metus quis sagittis. Sed viverra lectus turpis, non aliquet sapien aliquam nec. Maecenas nec purus at metus varius ullamcorper. Pellentesque rhoncus orci et aliquam eleifend.</p>
-      <h3>Some other section</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tortor tortor, nec rhoncus ipsum sollicitudin id. Phasellus rutrum, nulla et accumsan hendrerit, nulla tellus consequat massa, a eleifend ante velit in metus. Fusce et nisi vehicula, convallis leo a, adipiscing sapien. Phasellus sed lorem a urna pretium dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam elementum iaculis metus quis sagittis. Sed viverra lectus turpis, non aliquet sapien aliquam nec. Maecenas nec purus at metus varius ullamcorper. Pellentesque rhoncus orci et aliquam eleifend.</p>
-      <h3>Yet another section</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tortor tortor, nec rhoncus ipsum sollicitudin id. Phasellus rutrum, nulla et accumsan hendrerit, nulla tellus consequat massa, a eleifend ante velit in metus. Fusce et nisi vehicula, convallis leo a, adipiscing sapien. Phasellus sed lorem a urna pretium dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam elementum iaculis metus quis sagittis. Sed viverra lectus turpis, non aliquet sapien aliquam nec. Maecenas nec purus at metus varius ullamcorper. Pellentesque rhoncus orci et aliquam eleifend.</p>
-      
-      
+      <h3>Important Zones</h3>
+      <p>Large amounts of Silvermoon City reputation can be gained in the following zones:</p>
+      <ul>
+          <li>Eversong Woods</li>
+          <li>Ghostlands</li>
+          <li>Hellfire Peninsula</li>
+          <li>Blasted Lands</li>
+          <li>Desolace</li>
+      </ul>
+
+    <p>There are also daily quests available from the Argent Tournament (requires level 80), as well as Silvermoon Writ of Commendation from the Molten Front (requires level 85).</p>
+    <h3>Important People</h3>
+<p>The Silvermoon City quartermaster, Magistrix Nizara, is located in Eversong Woods.  At all reputation levels, she sells the Silvermoon City Tabard, which grants reputation in all dungeons.</p>
+    
+    <h3>Rewards</h3>
+    <p>When Revered you have access to the following items as a blood elf:</p>
+        <ul><li>Silvermoon Satchel</li></ul>
+    <p>When Exhalted you have access to the following items as a blood elf:</p>
+        <ul><li>Mantle of Silvermoon</li>
+        <li>Cape of Silvermoon</li>
+        <li>Shroud of Silvermoon</li></ul>
+    
+    <h5>Mounts</h5>
+    <p>Non-Blood Elves are able to purchase a Hawkstrider when they have reached Exalted</p>
+    
+      <br>
+
       <!-- Quest data -->
       <div class="panel  panel-default">
         <div class="panel-heading"><h1 class="panel-title">Associated Quests</h1></div>
         <div class="panel-body">
-            A standard message goes here as to how to use the table. Plus ability to enter character to fetch from battle.net
-        </div>
+            Below are the quests that offer reputation for Silvermoon City. Fields are sortable by clicking on their heading.
+            
+            <hr>
+            <form id="character-form">
+                <b>Enter your character id to filter quests:</b>
+                <div class="form-inline" role="form">
+                  <div class="form-group">
+                    <select id="server" class="form-control" placeholder="Select City">
+                        <option value="bladefist">Bladefist</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <input id="username" type="text" class="form-control" placeholder="Username">
+                  </div>
+                  <button id="submit" class="btn btn-default">Filter</button>
+                </div>
+            </form>
+            
+            <div id="reputation" style="display:none">
+                    <div><b>Status:</b><span id="standing"></span></div>
+                    <div id="rep-progress" class="progress" data-city-id=911>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                    </div>
+            </div>
+            
         <table id="quests" class="table table-hover table-collapse" data-json="silvermoon.json">
             <thead>
                 <tr>

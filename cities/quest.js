@@ -7,6 +7,14 @@ $(function() {
         $table.children("tbody").html(template(questdata));
     });
     
+    $("#submit").click(function(e){
+        e.preventDefault();
+        var server = $("#server").val();
+        var username = $("#username").val();
+        get_character_rep(username, server);
+        return false;
+    });
+    
     //Attach sort listeners to headers
     var $headers = $("th", $table);
     var sorted = -1; //The current column that is sorted;
@@ -84,6 +92,21 @@ $(function() {
         $table.children("tbody").html(template(questdata));
     });
 });
+
+function get_character_rep(username, server) {
+    $.getJSON("http://us.battle.net/api/wow/character/"+server+"/"+username+"?fields=reputation", function(data) {
+        var i;
+        for (i = 0; i < data.reputation.length; i++) {
+            if (data.reputation[i].id === $("#rep-progress").data("city-id")) break;
+        }
+        $("#rep-progress").children().css("width",data.reputation[i].value/data.reputation[i].max*100+"%");
+        var standings = ["Hated", "Hostile","Unfirendly","Nuetral","Friendly","Honored","Revered","Exalted"];
+        $("#standing").html(standings[data.reputation[i].standing]);
+        $("#reputation").show();
+        $("#character-form").hide();
+                alert(standings[data.reputation[i].standing]);
+    });
+}
 
 function name_sort(a, b) {
     if (a.name < b.name) return -1;
