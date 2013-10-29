@@ -1,117 +1,132 @@
 <!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="author">
+  <link href="assets/ico/favicon.png" rel="shortcut icon">
 
-    <title>Street Cred: The Definitive Guide to WoW Reputation</title>
+  <title>Street Cred: The Definitive Guide to WoW Reputation</title>
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+  <!-- Main styles for site -->
+  <link href="css/main.css" rel="stylesheet">
 
-    <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Main styles for site -->
-    <link href="css/main.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
       <script src="assets/js/html5shiv.js"></script>
       <script src="assets/js/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 
-  <body>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" data-target=".navbar-collapse"
+        data-toggle="collapse" type="button"><span class="icon-bar"></span>
+        <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+        <a class="navbar-brand" href="index.html">Street Cred</a>
+      </div>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">Street Cred</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li class="active"><a href="overview.html">Overview</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cities<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li class="dropdown-header">Horde Cities</li>
-                <li class="divider"></li>
-                <li><a href="cities/silvermoon.html">Silvermoon</a></li>
-                <li><a href="cities/undercity.html">Undercity</a></li>
-                <li><a href="cities/orgrimmar.html">Orgrimmar</a></li>
-                <li><a href="cities/thunderbluff.html">Thunder Bluff</a></li>
-                <li><a href="cities/bilgewater.html">Bilgewater Harbor</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Character Info</a></li>
-          </ul>
-        </div><!--/.navbar-collapse -->
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li class="active"><a href="overview.html">Overview</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cities<b class="caret"></b></a>
+
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">Horde Cities</li>
+              <li class="divider"></li>
+              <li><a href="cities/silvermoon.html">Silvermoon</a></li>
+              <li><a href="cities/undercity.html">Undercity</a></li>
+              <li><a href="cities/orgrimmar.html">Orgrimmar</a></li>
+              <li><a href="cities/thunderbluff.html">Thunder Bluff</a></li>
+              <li><a href="cities/bilgewater.html">Bilgewater Harbor</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#">Character Info</a>
+          </li>
+        </ul>
+      </div><!--/.navbar-collapse -->
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>All About Reputation</h1>
+    <hr>
+
+    <h3>General</h3>
+
+    <p>Reputation points are gained through quests and killing various mobs. It
+    is possible to lose reputation points with some factions by killing members
+    of the faction or by assisting rival factions. For rival factions, gaining
+    reputation with one will normally decrease reputation with the other but at
+    a greater rate.</p>
+
+    <h3>Gaining and Losing Reputation:</h3>
+
+    <div class="thumbnail pull-right" style="margin-left:10px">
+      <img alt="..." data-src="holder.js/300x200" src=
+      "http://www.blogcdn.com/wow.joystiq.com/media/2008/04/md-reputation.jpg">
+
+      <div class="caption">
+        <p>An in-game display of a player's<br>
+        reputation with various factions.</p>
       </div>
     </div>
-
-    <div class="container">
-        <h1>All About Reputation</h1>
-        <hr>
-        <h3>General</h3>
-        <p>
-            Reputation points are gained through quests and killing various mobs.  It is possible to lose reputation points with some factions by killing members of the faction or by assisting rival factions.  For rival factions, gaining reputation with one will normally decrease reputation with the other but at a greater rate.
-        </p>
-
-        <h3>Gaining and Losing Reputation:</h3>
-        <p>
-            <div class="thumbnail pull-right" style="margin-left:10px">
-                <img src="http://www.blogcdn.com/wow.joystiq.com/media/2008/04/md-reputation.jpg" data-src="holder.js/300x200" alt="...">
-                <div class="caption">
-                    <p>An in-game display of a player's <br> reputation with various factions.</p>
-                </div>
-            </div>
-            Completing non-repeatable quests will increase your reputation with the quest giver’s faction
-            Mobs gives full reputation
-            Mobs and quests sometimes increase your reputation
-            Gaining reputation with your home faction provides access to discounted prices at vendors
-            Gaining reputation with other factions may provide additional benefits, such as specific items, patterns, or spells that can be purchased from vendors
-            If you want a mount of a faction that is not your own, you must be Exalted with that factions
-            Most quests will give full reputation gain for that faction and one quarter of that reputation gain for the other related factions
-            At level 77 and above, characters can gain reputation with their faction’s races by completing quests for the Argent Tournament
-            There is no way to increase or view your reputation with factions fo the opposite team (Horde vs Alliance)
-        </p>
-        
-        <!--<h3>Rewards and Benefits:</h3>
+    
+    <p>Completing non-repeatable quests will increase your reputation with
+    the quest giver’s faction Mobs gives full reputation Mobs and quests
+    sometimes increase your reputation Gaining reputation with your home
+    faction provides access to discounted prices at vendors Gaining reputation
+    with other factions may provide additional benefits, such as specific
+    items, patterns, or spells that can be purchased from vendors If you want a
+    mount of a faction that is not your own, you must be Exalted with that
+    factions Most quests will give full reputation gain for that faction and
+    one quarter of that reputation gain for the other related factions At level
+    77 and above, characters can gain reputation with their faction’s races by
+    completing quests for the Argent Tournament There is no way to increase or
+    view your reputation with factions fo the opposite team (Horde vs Alliance).
+    </p>
+    
+    <!--<h3>Rewards and Benefits:</h3>
         <p>
             Lorem Ipsum!
         </p>-->
-        
-        <h3>Managing Reputation:</h3>
-        <p>There are several ways you can view your standing with a particular faction both in game and out of game:</p>
-            <h4>In Game</h4>
-            <p>
-            You can check your reputation with all factions by pressing the “u” hotkey or by going to the Character window (“c” hotkey) and clicking on the Reputation tab along the bottom.
-            </p>
-            <!--<h4>Out of Game</h4>
+
+    <h3>Managing Reputation:</h3>
+
+    <p>There are several ways you can view your standing with a particular
+    faction both in game and out of game:</p>
+
+    <h4>In Game</h4>
+
+    <p>You can check your reputation with all factions by pressing the “u”
+    hotkey or by going to the Character window (“c” hotkey) and clicking on the
+    Reputation tab along the bottom.</p>
+    
+    <!--<h4>Out of Game</h4>
             <p>
             Lorem Ipsum....
             </p>-->
+    <hr>
 
-      
-      <hr>
-
-      <footer>
-        <p>Created for LCC3404: Technical Communication, Georgia Tech, Fall 2013 | All Rights Reserved</p>
-        <p>World of Warcraft is a registered trademark of Blizzard Entertainment, Inc. This site is not affliated with Blizzard Entertainment.</p>
-      </footer>
-    </div> <!-- /container -->
-
-    <!-- Bootstrap core JavaScript
+    <footer>
+      <p>Created for LCC3404: Technical Communication, Georgia Tech, Fall 2013 | All Rights Reserved</p>
+      <p>World of Warcraft is a registered trademark of Blizzard Entertainment, Inc. This site is not affliated with Blizzard Entertainment.</p>
+    </footer>
+  </div><!-- /container -->
+  <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!-- Uncommment on delpoy <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
-  </body>
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="js/jquery.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script> 
+  <!-- Uncommment on delpoy <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+</body>
 </html>

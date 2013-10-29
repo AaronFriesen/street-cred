@@ -12,18 +12,18 @@
   <!-- Bootstrap core CSS -->
   <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
   <!-- Main styles for site -->
-  <link href="../css/main.css" rel="stylesheet"><!-- Mustache Templates -->
-
+  <link href="../css/main.css" rel="stylesheet">
+  <!-- Mustache Templates -->
   <script id="template" type="text/template">
-      {{#quests}}
-        <tr>
-            <td><a href="http://www.wowhead.com{{link}}">{{name}}</a></td> 
-            <td>{{level}}</td> 
-            <td>{{req}}</td> 
-            <td>{{rep}}</td> 
-            <td>{{exp}}</td>
-        </tr>
-        {{/quests}}
+    {{#quests}}
+    <tr>
+        <td><a href="http://www.wowhead.com{{link}}">{{name}}</a></td> 
+        <td>{{level}}</td> 
+        <td>{{req}}</td> 
+        <td>{{rep}}</td> 
+        <td>{{exp}}</td>
+    </tr>
+    {{/quests}}
   </script>
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -258,8 +258,10 @@
   <!-- Bootstrap core JavaScript
     ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
-  <script src="../js/jquery.js"></script> <script src="../bootstrap/js/bootstrap.min.js"></script>
-  <script src="../js/mustache.js"></script> <script src="quest.js" type="text/javascript"></script> 
-<!-- Uncommment on delpoy <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+  <script src="../js/jquery.js"></script>
+  <script src="../bootstrap/js/bootstrap.min.js"></script>
+  <script src="../js/mustache.js"></script>
+  <script src="quest.js" type="text/javascript"></script> 
+  <!-- Uncommment on delpoy <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
 </body>
 </html>
