@@ -100,9 +100,7 @@ $(function() {
       direction = !direction;
     }
     else {
-      questdata.quests.sort(function(a, b) {
-        return a.level - b.level;
-      });
+      questdata.quests.sort(level_sort);
       $headers.removeClass("sorted-up sorted-down");
       direction = true;
       sorted = 1;
@@ -165,3 +163,7 @@ $(function() {
     $table.children("tbody").html(template(questdata));
   });
 });
+
+function level_sort(a, b) {
+  return a.level - b.level;
+};
