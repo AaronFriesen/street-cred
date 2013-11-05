@@ -24,11 +24,20 @@ th.sorted-down::after {
 }
 
 button.close {
-    outline: none;
+  outline: none;
 }
 
 table.sortable th {
   cursor: pointer;
+}
+
+#quests td:not(:first-of-type), #quests th:not(:first-of-type) {
+  vertical-align:middle !important;
+  text-align: center;
+}
+
+#quests td small:not(:last-of-type)::after {
+  content:", "
 }
 
 .fade-out {

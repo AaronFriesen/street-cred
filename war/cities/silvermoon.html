@@ -17,11 +17,18 @@
   <script id="template" type="text/template">
     {{#quests}}
     <tr>
-        <td><a href="http://www.wowhead.com{{link}}">{{name}}</a></td> 
-        <td>{{level}}</td> 
-        <td>{{req}}</td> 
-        <td>{{rep}}</td> 
-        <td>{{exp}}</td>
+      <td>
+        <a href="http://www.wowhead.com/quest={{id}}">{{name}}</a>{{#class.length}}<br>{{/class.length}}
+        <span class="pull-rgiht">{{#class}}<small><a href="http://www.wowhead.com/class={{id}}">{{name}}</a></small>{{/class}}</span>
+        <span class="pull-right">{{#race}}<small><a href="http://www.wowhead.com/race={{id}}">{{name}}</a></small>{{/race}}</span>
+      </td> 
+      <td>
+        {{level}}<br><small>{{type}}</small>
+      </td>
+      <td>{{req}}</td> 
+      <td>{{rep}}</td> 
+      <td>{{exp}}</td>
+      <td>{{cat}}</td>
     </tr>
     {{/quests}}
   </script>
@@ -191,7 +198,9 @@
             <button class="close" type="button">×</button>
             <strong>Error:</strong> Unable to find <span><!--Dynamic--></span>.
             Please try again.
-          </div><b>Enter your character id to filter quests:</b>
+          </div>
+          
+          <b>Enter your character id to filter quests:</b>
 
           <div class="form-inline">
             <div class="form-group">
@@ -201,33 +210,53 @@
                 </option>
               </select>
             </div>
-
+            
             <div class="form-group">
               <input class="form-control" id="username" placeholder="Username"
               type="text">
-            </div><button class="btn btn-default" id="submit">Filter</button>
+            </div>
+            <button class="btn btn-default" id="submit">Filter</button>
           </div>
         </form>
-
-        <div class="row" id="character-info" style="display:none">
-          <div class="col-md-8">
-            <div>
-              <b>Status:</b>
-              <span id="standing"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <b>Level:</b> 
-              <span id="level"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-              <b>Reputation Points:</b> 
-              <span id="points"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-              <b>Till Next Level:</b> 
-              <span id="points-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div id="character-info" style="display:none">
+                    <div class="alert alert-success" id="api-success" style="display:none">
+              <button class="close" type="button">×</button>
+              Quests are now filtered by the user's level, race, and class.
             </div>
+          <div class="row">
+            <div class="col-md-3">
+              <b><span id="username-fill"></span>'s Reputation:</b>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
 
-            <div class="progress progress-striped" data-city-id="911" id="rep-progress">
-              <div class="progress-bar"></div>
+                <b>Status:</b>
+                <span id="standing"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <b>Level:</b> 
+                <span id="level"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <b>Reputation Points:</b> 
+                <span id="points"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <b>Till Next Level:</b> 
+                <span id="points-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+              <div class="progress progress-striped" data-city-id="911" id="rep-progress">
+                <div class="progress-bar"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <form>
+                <div class="form-inline">
+                  <button class="btn btn-default" id="reset">Reset</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-  
+        
         <br>
 
         <table class="table table-hover table-collapse sortable" data-json=
@@ -235,10 +264,11 @@
           <thead>
             <tr>
               <th>Quest</th>
-              <th class="sorted-down">Level</th>
+              <th class="sorted-up">Level</th>
               <th>Required</th>
               <th>Reputation</th>
               <th>Experience</th>
+              <th>Category</th>
             </tr>
           </thead>
 
