@@ -1,8 +1,8 @@
 $(function() {
   var questdata_json;
   var questdata;
+  var template = initTemplate();
   var $table = $("#quests");
-  var template = Mustache.compile($("#template").html());
   $.getJSON($("#quests").data("json"), function(data) {
     data.quests.sort(level_sort);
     questdata = data;
@@ -238,4 +238,26 @@ function contains(id, arr) {
   for (i = 0; i < arr.length; i++)
     if (id === arr[i].id) return true;
   return false;
+}
+
+//Gets the templating function for filling in the quest table
+function initTemplate() {
+  return Mustache.compile(
+    "{{#quests}}" +
+    "<tr>" +
+    "  <td>" +
+    "    <a href='http://www.wowhead.com/quest={{id}}'>{{name}}</a>{{#class.length}}<br>{{/class.length}}" +
+    "    <span class='pull-rgiht'>{{#class}}<small><a href='http://www.wowhead.com/class={{id}}'>{{name}}</a></small>{{/class}}</span>" +
+    "    <span class='pull-right'>{{#race}}<small><a href='http://www.wowhead.com/race={{id}}'>{{name}}</a></small>{{/race}}</span>" +
+    "  </td>" +
+    "  <td>" +
+    "    {{level}}<br><small>{{type}}</small>" +
+    "  </td>" +
+    "  <td>{{req}}</td>" +
+    "  <td>{{rep}}</td>" +
+    "  <td>{{exp}}</td>" +
+    "  <td>{{cat}}</td>" +
+    "</tr>" +
+    "{{/quests}}"
+  );
 }
