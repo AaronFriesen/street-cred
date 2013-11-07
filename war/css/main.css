@@ -32,7 +32,7 @@ table.sortable th {
 }
 
 #quests td:not(:first-of-type), #quests th:not(:first-of-type) {
-  vertical-align:middle !important;
+  vertical-align: middle !important;
   text-align: center;
 }
 
@@ -41,6 +41,11 @@ table.sortable th {
 }
 
 .fade-out {
-    opacity: 0;
-    transition: opacity 1s ease-out;
+  opacity: 0;
+  transition: opacity 1s ease-out;
 }
+
+a.q1 {
+  color: black !important;
+}
+
