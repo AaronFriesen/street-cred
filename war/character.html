@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="author">
+  <link href="assets/ico/favicon.png" rel="shortcut icon">
+
+  <title>Street Cred: Charcter Reputation</title>
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+  <!-- Main styles for site -->
+  <link href="css/main.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" data-target=".navbar-collapse"
+        data-toggle="collapse" type="button"><span class="icon-bar"></span>
+        <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+        <a class="navbar-brand" href="index.html">Street Cred</a>
+      </div>
+
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="overview.html">Overview</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cities<b class="caret"></b></a>
+
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">Horde Cities</li>
+              <li class="divider"></li>
+              <li><a href="cities/silvermoon.html">Silvermoon</a></li>
+              <li><a href="cities/undercity.html">Undercity</a></li>
+              <li><a href="cities/orgrimmar.html">Orgrimmar</a></li>
+              <li><a href="cities/thunderbluff.html">Thunder Bluff</a></li>
+              <li><a href="cities/bilgewater.html">Bilgewater Harbor</a></li>
+              <li><a href="cities/darkspear.html">Darkspear Trolls</a></li>
+            </ul>
+          </li>
+
+          <li class="active">
+            <a href="character.html">Character Info</a>
+          </li>
+        </ul>
+      </div><!--/.navbar-collapse -->
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Character Reputation</h1>
+    
+    <hr>
+    <p>Character information, including reputation, through the Battle.net
+    <a href="http://us.battle.net/wow/en/community/">Armoury</a> for characters
+    that have reached level 10. For you convenience you can check your reputation
+    with select factions from this page.</p>
+    
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <hr>
+        <center>
+          <div class="alert alert-danger" id="api-error" style="display:none">
+            <button class="close" type="button">×</button>
+            <strong>Error:</strong> Unable to find <span><!--Dynamic--></span>.
+            Please try again.
+          </div>
+          <form id="character-form" name="character-form">
+          
+            <p><b>Enter your character information to view your reputation:</b></p>
+
+            <div class="form-inline">
+              <div class="form-group">
+                <select class="form-control" id="server"><!--from json--></select>
+              </div>
+              
+              <div class="form-group">
+                <input class="form-control" id="username" placeholder="Username"
+                type="text">
+              </div>
+              <button class="btn btn-default" id="submit">Submit</button>
+            </div>
+          </form>
+        </center>
+        <hr>
+      </div>
+    </div>
+    
+    <div id="user-info" style="display:none">
+      <center>
+        <h2 id="username-fill"></h2>
+        <b>Race:</b> <span id="race"></span>&nbsp;&nbsp;
+        <b>Class:</b> <span id="class"></span>&nbsp;&nbsp;
+        <b>Side:</b> <span id="side"></span><img id="side-img" style="padding-left:5px">&nbsp;&nbsp;
+        <b>Level:</b> <span id="level"></span>&nbsp;&nbsp;
+      </center>
+    
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Silvermoon City</h3>
+
+            <b>Status:</b>
+            <span id="standing"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Reputation Points:</b> 
+            <span id="points"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <b>Till Next Level:</b> 
+            <span id="points-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+          <div class="progress progress-striped" data-city-id="911" id="rep-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3>Undercity</h3>
+
+            <b>Status:</b>
+            <span id="standing"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Reputation Points:</b> 
+            <span id="points"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <b>Till Next Level:</b> 
+            <span id="points-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+          <div class="progress progress-striped" data-city-id="68" id="rep-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Orgrimmar</h3>
+
+            <b>Status:</b>
+            <span id="standing"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Reputation Points:</b> 
+            <span id="points"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <b>Till Next Level:</b> 
+            <span id="points-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+          <div class="progress progress-striped" data-city-id="76" id="rep-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3>Thunder Bluff</h3>
+
+            <b>Status:</b>
+            <span id="standing"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Reputation Points:</b> 
+            <span id="points"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <b>Till Next Level:</b> 
+            <span id="points-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+          <div class="progress progress-striped" data-city-id="81" id="rep-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Bilgewater Cartel</h3>
+
+            <b>Status:</b>
+            <span id="standing"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Reputation Points:</b> 
+            <span id="points"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <b>Till Next Level:</b> 
+            <span id="points-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+          <div class="progress progress-striped" data-city-id="1133" id="rep-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3>Darkspear Trolls</h3>
+
+            <b>Status:</b>
+            <span id="standing"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>Reputation Points:</b> 
+            <span id="points"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <b>Till Next Level:</b> 
+            <span id="points-left"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+          <div class="progress progress-striped" data-city-id="530" id="rep-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+
+    <footer>
+      <p>Created for LCC3404: Technical Communication, Georgia Tech, Fall 2013 | All Rights Reserved</p>
+      <p>World of Warcraft is a registered trademark of Blizzard Entertainment, Inc. This site is not affliated with Blizzard Entertainment.</p>
+    </footer>
+  </div><!-- /container -->
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="js/jquery.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script> 
+  <script src="js/main.js"></script>
+  <script src="character.js"></script>
+  <!-- Uncommment on delpoy <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+  <script type="text/javascript" src="http://static.wowhead.com/widgets/power.js"></script>
+  <script>var wowhead_tooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true }</script>
+</body>
+</html>

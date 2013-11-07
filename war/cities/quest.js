@@ -1,9 +1,12 @@
-$(function() {
+$(function () {
   var questdata_json;
   var questdata;
-  var template = initTemplate();
+  var template = init_template();
   var $table = $("#quests");
-  $.getJSON($("#quests").data("json"), function(data) {
+  
+  populate_servers();
+  
+  $.getJSON($("#quests").data("json"), function (data) {
     data.quests.sort(level_sort);
     questdata = data;
     questdata_json = JSON.stringify(data);
@@ -12,211 +15,113 @@ $(function() {
 
   //Handle errors from api call
   var $api_error = $("#api-error");
-  $api_error.on("transitionend", function() {
+  $api_error.on("transitionend", function () {
     $api_error.hide();
   });
 
-  $("button", $api_error).click(function(e) {
+  $("button", $api_error).click(function (e) {
     $api_error.addClass("fade-out");
   });
   
+  //Handle successfull api call
   var $api_success = $("#api-success");
-  $api_success.on("transitionend", function() {
+  $api_success.on("transitionend", function () {
     $api_success.hide();
   });
   
-  $("button", $api_success).click(function(e) {
+  $("button", $api_success).click(function (e) {
     $api_success.hide();
   });
 
   //Handle api call
-  $("#submit").click(function(e) {
+  $("#submit").click(function (e) {
     e.preventDefault();
     var btn = $(this);
     btn.button('loading');
     var server = $("#server").val();
     var username = $("#username").val();
-
-    var timeout = setTimeout(function() {
-      btn.button('reset');
-      $("span", $api_error).text(username + " at " + server);
-      $api_error.removeClass("fade-out").show();
-    }, 5000);
-
-    $.getJSON("http://us.battle.net/api/wow/character/" + encodeURIComponent(server) + "/" + encodeURIComponent(username) + "?fields=reputation&jsonp=?", 
-    function(data) {
-      clearTimeout(timeout);
-      btn.button('reset');
-      $api_error.hide();
-      $("#character-form").hide();
-      var i;
-      for (i = 0; i < data.reputation.length; i++) {
-        if (data.reputation[i].id === $("#rep-progress").data("city-id")) break;
-      }
-      var standings = ["Hated", "Hostile", "Unfriendly", "Nuetral", "Friendly", "Honored", "Revered", "Exalted"];
-      var rep = data.reputation[i];
-      $("#standing").html(standings[rep.standing]);
-      $("#level").html(data.level);
-      $("#points").html(rep.value);
-      $("#points-left").html(rep.max - rep.value);
-
-      //Remove quests that are not availabe for this character
-      console.log(data.class + " " + data.race);
-      for (var j = 0; j < questdata.quests.length; j++) {
-        var quest = questdata.quests[j];
-        if (quest.req > data.level) {
-          questdata.quests.splice(j--, 1);
-        } else if (quest.class && !contains(data.class, quest.class)) {
-          questdata.quests.splice(j--, 1);  
-        } else if (quest.race && !contains(data.race, quest.race)) {
-          questdata.quests.splice(j--, 1);
+    
+    api_call(username, server,  
+      function (data) {
+        btn.button('reset');
+        $api_error.hide();
+        $("#character-form").hide();
+        var i;
+        for (i = 0; i < data.reputation.length; i++) {
+          if (data.reputation[i].id === $("#rep-progress").data("city-id")) break;
         }
-      }
-      $table.children("tbody").html(template(questdata));
+        $("#level").html(data.level);
 
-      $("#rep-progress").children().removeClass("progress-bar-danger progress-bar-success progress-bar-warning");
-      if (rep.standing < 3) $("#rep-progress").children().addClass("progress-bar-danger");
-      else if (rep.standing > 3) $("#rep-progress").children().addClass("progress-bar-success");
-      else $("#rep-progress").children().addClass("progress-bar-warning");
+        //Remove quests that are not availabe for this character
+        for (var j = 0; j < questdata.quests.length; j++) {
+          var quest = questdata.quests[j];
+          if (quest.req > data.level) {
+            questdata.quests.splice(j--, 1);
+          } else if (quest.class && !contains(data.class, quest.class)) {
+            questdata.quests.splice(j--, 1);  
+          } else if (quest.race && !contains(data.race, quest.race)) {
+            questdata.quests.splice(j--, 1);
+          }
+        }
+        $table.children("tbody").html(template(questdata));
       
-      $("#username-fill").text(username.charAt(0).toUpperCase() + username.slice(1));
-      $("#character-info").show();
+        fill_rep_data($("#character-info"), data.reputation[i]);  
       
-      $("#rep-progress").children().css("width", data.reputation[i].value / data.reputation[i].max * 100 + "%");
-      
-      setTimeout(function() {
-        $api_success.addClass("fade-out");
-      }, 5000);
-      $api_success.removeClass("fade-out").show();
-    });
+        $("#username-fill").text(username.charAt(0).toUpperCase() + username.slice(1));
+        $("#character-info").show();
+        
+        $api_success.removeClass("fade-out").show();
+        setTimeout(function () {
+          $api_success.addClass("fade-out");
+        }, 5000);
+      },
+      function () {
+        btn.button('reset');
+        $("span", $api_error).text(username + " at " + server);
+        $api_error.removeClass("fade-out").show();
+      }
+    );
   });
 
   //Attach panel collapse toggles
-  $(".panel-collapse").click(function() {
+  $(".panel-collapse").click(function () {
     $(this).children("button").html(($(this).hasClass("collapsed")) ? "&minus;" : "&plus;");
   });
 
   //Attach sort listeners to headers
   var $headers = $("th", $table);
-  var sorted = 1; //The current column that is sorted;
-  var direction =  true; //true -> ascending false -> descending
-  $headers.eq(0).click(function() {
-    if (sorted === 0) {
-      questdata.quests.reverse();
-      $(this).removeClass("sorted-up sorted-down");
-      direction = !direction;
-    }
-    else {
-      questdata.quests.sort(name_sort);
-      $headers.removeClass("sorted-up sorted-down");
-      direction = true;
-      sorted = 0;
-    }
-    $(this).addClass(direction ? "sorted-up" : "sorted-down");
-    $table.children("tbody").html(template(questdata));
-  });
-
-  $headers.eq(1).click(function() {
-    if (sorted === 1) {
-      questdata.quests.reverse();
-      $(this).removeClass("sorted-up sorted-down");
-      direction = !direction;
-    }
-    else {
-      questdata.quests.sort(level_sort);
-      $headers.removeClass("sorted-up sorted-down");
-      direction = true;
-      sorted = 1;
-    }
-    $(this).addClass(direction ? "sorted-up" : "sorted-down");
-    $table.children("tbody").html(template(questdata));
-  });
-
-  $headers.eq(2).click(function() {
-    if (sorted === 2) {
-      questdata.quests.reverse();
-      $(this).removeClass("sorted-up sorted-down");
-      direction = !direction;
-    }
-    else {
-      questdata.quests.sort(function(a, b) {
-        if (a.req === b.req) return name_sort(a,b);
-        return a.req - b.req;
-      });
-      $headers.removeClass("sorted-up sorted-down");
-      direction = true;
-      sorted = 2;
-    }
-    $(this).addClass(direction ? "sorted-up" : "sorted-down");
-    $table.children("tbody").html(template(questdata));
-  });
-
-  $headers.eq(3).click(function() {
-    if (sorted === 3) {
-      questdata.quests.reverse();
-      $(this).removeClass("sorted-up sorted-down");
-      direction = !direction;
-    }
-    else {
-      questdata.quests.sort(function(a, b) {
-        if (a.rep === b.rep) return name_sort(a,b);
-        return a.rep - b.rep;
-      });
-      $headers.removeClass("sorted-up sorted-down");
-      direction = true;
-      sorted = 3;
-    }
-    $(this).addClass(direction ? "sorted-up" : "sorted-down");
-    $table.children("tbody").html(template(questdata));
-  });
-
-  $headers.eq(4).click(function() {
-    if (sorted === 4) {
-      questdata.quests.reverse();
-      $(this).removeClass("sorted-up sorted-down");
-      direction = !direction;
-    }
-    else {
-      questdata.quests.sort(function(a, b) {
-        if (a.exp === b.exp) return name_sort(a,b);
-        return a.exp - b.exp;
-      });
-      $headers.removeClass("sorted-up sorted-down");
-      direction = true;
-      sorted = 4;
-    }
-    $(this).addClass(direction ? "sorted-up" : "sorted-down");
-    $table.children("tbody").html(template(questdata));
-  });
+  var sorted = $headers[1]; //The current column that is sorted;
+  var direction = true; //true -> ascending false -> descending
+  var sorts = [name_sort, level_sort, req_sort, rep_sort, exp_sort, cat_sort];
   
-  $headers.eq(5).click(function() {
-    if (sorted === 5) {
-      questdata.quests.reverse();
-      $(this).removeClass("sorted-up sorted-down");
-      direction = !direction;
-    }
-    else {
-      questdata.quests.sort(function(a, b) {
-        if (a.cat < b.cat) return -1;
-        else if (a.cat > b.cat) return 1;
-        else return name_sort(a,b);
+  for (var i = 0; i < $headers.length; i++) {
+    (function (sort_func) {
+      $headers.eq(i).click(function () {
+        if (sorted === this) {
+          questdata.quests.reverse();
+          $(this).removeClass("sorted-up sorted-down");
+          direction = !direction;
+        }
+        else {
+          questdata.quests.sort(sort_func);
+          $headers.removeClass("sorted-up sorted-down");
+          direction = true;
+          sorted = this;
+        }
+        $(this).addClass(direction ? "sorted-up" : "sorted-down");
+        $table.children("tbody").html(template(questdata));
       });
-      $headers.removeClass("sorted-up sorted-down");
-      direction = true;
-      sorted = 5;
-    }
-    $(this).addClass(direction ? "sorted-up" : "sorted-down");
-    $table.children("tbody").html(template(questdata));
-  });
+    })(sorts[i]); //crazy closure stuff from T.S.
+  }
   
   //Handle reset of character form
-  $("#reset").click(function(e) {
+  $("#reset").click(function (e) {
     e.preventDefault();
     $("#character-info").hide();
     questdata = JSON.parse(questdata_json);
     $headers.removeClass("sorted-up sorted-down");
     $headers.eq(1).addClass("sorted-up");
-    sorted = 1;
+    sorted = $headers[1];
     direction = true;
     $table.children("tbody").html(template(questdata));
     $("#character-form").show();
@@ -234,14 +139,29 @@ function name_sort(a,b) {
   else return 0;
 }
 
-function contains(id, arr) {
-  for (i = 0; i < arr.length; i++)
-    if (id === arr[i].id) return true;
-  return false;
+function req_sort(a, b) {
+  if (a.req === b.req) return name_sort(a,b);
+  return a.req - b.req;
+}
+
+function rep_sort(a, b) {
+  if (a.rep === b.rep) return name_sort(a,b);
+  return a.rep - b.rep;
+}
+
+function exp_sort(a, b) {
+  if (a.exp === b.exp) return name_sort(a,b);
+  return a.exp - b.exp;
+}
+
+function cat_sort(a, b) {
+  if (a.cat < b.cat) return -1;
+  else if (a.cat > b.cat) return 1;
+  else return name_sort(a,b);
 }
 
 //Gets the templating function for filling in the quest table
-function initTemplate() {
+function init_template() {
   return Mustache.compile(
     "{{#quests}}" +
     "<tr>" +
