@@ -24,7 +24,10 @@ $(function () {
         btn.button("reset");
         $api_error.hide();
         var $user_info = $("#user-info");
-        $("#username-fill").text(data.name);
+        
+        $("#armoury", $user_info).attr("href","http://us.battle.net/wow/en/character/"+server+"/"+username+"/");
+        
+        $("#username-fill", $user_info).text(data.name);
         
         var races = {"1":{"name":"Human","side":"Alliance"},"5":{"name":"Undead","side":"Horde"},
           "11":{"name":"Draenei","side":"Alliance"},"7":{"name":"Gnome","side":"Alliance"},
