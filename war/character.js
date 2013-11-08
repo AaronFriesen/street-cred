@@ -18,7 +18,8 @@ $(function () {
     btn.button("loading");
     
     var username = $("#username").val();
-    var server =  $("#server").val()
+    var server =  $("#server").val();
+    var nice_server =  $("#server").text();
     api_call(username, server,
       function (data) {
         btn.button("reset");
@@ -76,7 +77,7 @@ $(function () {
       },
       function () {
         btn.button("reset");
-        $("span", $api_error).text(username + " at " + server);
+        $("span", $api_error).text(username + " at " + nice_server);
         $api_error.removeClass("fade-out").show();
       });
   });
