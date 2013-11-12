@@ -19,7 +19,7 @@ $(function () {
     
     var username = $("#username").val();
     var server =  $("#server").val();
-    var nice_server =  $("#server").text();
+    var nice_server =  $("#server option:selected").text();
     api_call(username, server,
       function (data) {
         btn.button("reset");

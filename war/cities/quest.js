@@ -39,7 +39,7 @@ $(function () {
     var btn = $(this);
     btn.button('loading');
     var server = $("#server").val();
-    var nice_server =  $("#server").text();
+    var nice_server =  $("#server option:selected").text();
     var username = $("#username").val();
     
     api_call(username, server,  
